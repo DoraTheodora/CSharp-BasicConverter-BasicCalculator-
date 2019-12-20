@@ -174,45 +174,53 @@ namespace Lab5
 
         private void Equal_Click(object sender, EventArgs e)
         {
-            String[] numbers = richTextBox1.Text.Substring(1,richTextBox1.Text.Length-1).Split(getOperator());
-            numbers[0] = richTextBox1.Text[0] + numbers[0];
-            if (numbers.Length == 2)
+            try
             {
-                if (numbers[0].Any(x => char.IsDigit(x)) && numbers[1].Any(x => char.IsDigit(x)))
+                String[] numbers = richTextBox1.Text.Substring(1, richTextBox1.Text.Length - 1).Split(getOperator());
+                numbers[0] = richTextBox1.Text[0] + numbers[0];
+                if (numbers.Length == 2)
                 {
-                    if (getOperator() == '*' && numbers[1] != "")
+                    if (numbers[0].Any(x => char.IsDigit(x)) && numbers[1].Any(x => char.IsDigit(x)))
                     {
-                        total = Convert.ToDouble(numbers[0]) * Convert.ToDouble(numbers[1]);
-                        checkDecimal();
+                        if (getOperator() == '*' && numbers[1] != "")
+                        {
+                            total = Convert.ToDouble(numbers[0]) * Convert.ToDouble(numbers[1]);
+                            checkDecimal();
+                        }
+                        else if (getOperator() == '/' && numbers[1] != "")
+                        {
+                            total = Convert.ToDouble(numbers[0]) / Convert.ToDouble(numbers[1]);
+                            checkDecimal();
+                        }
+                        else if (getOperator() == '-' && numbers[1] != "")
+                        {
+                            total = Convert.ToDouble(numbers[0]) - Convert.ToDouble(numbers[1]);
+                            checkDecimal();
+                        }
+                        else if (getOperator() == '+' && numbers[1] != "")
+                        {
+                            total = Convert.ToDouble(numbers[0]) + Convert.ToDouble(numbers[1]);
+                            checkDecimal();
+                        }
+                        else if (getOperator() == '%' && numbers[1] != "")
+                        {
+                            total = Convert.ToDouble(numbers[0]) % Convert.ToDouble(numbers[1]);
+                            checkDecimal();
+                        }
+                        Decimal.Enabled = true;
                     }
-                    else if (getOperator() == '/' && numbers[1] != "")
-                    {
-                        total = Convert.ToDouble(numbers[0]) / Convert.ToDouble(numbers[1]);
-                        checkDecimal();
-                    }
-                    else if (getOperator() == '-' && numbers[1] != "")
-                    {
-                        total = Convert.ToDouble(numbers[0]) - Convert.ToDouble(numbers[1]);
-                        checkDecimal();
-                    }
-                    else if (getOperator() == '+' && numbers[1] != "")
-                    {
-                        total = Convert.ToDouble(numbers[0]) + Convert.ToDouble(numbers[1]);
-                        checkDecimal();
-                    }
-                    else if (getOperator() == '%' && numbers[1] != "")
-                    {
-                        total = Convert.ToDouble(numbers[0]) % Convert.ToDouble(numbers[1]);
-                        checkDecimal();
-                    }
-                    Decimal.Enabled = true;
                 }
+            }
+            catch (Exception)
+            {
+                richTextBox1.Text = "The calculation cannot be done!";
             }
         }
 
         private void Clear_Click(object sender, EventArgs e)
         {
             richTextBox1.Text = "";
+            Decimal.Enabled = true;
         }
 
         private void Delete_Click(object sender, EventArgs e)
